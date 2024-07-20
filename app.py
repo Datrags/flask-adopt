@@ -26,7 +26,7 @@ def add_pet():
     form = AddPetForm()
 
     spec = list(set([(p.species, p.species) for p in Pet.query.all()]))
-    print("printing spec",spec)
+   
     form.species.choices = spec
     
     if form.validate_on_submit():
@@ -49,7 +49,7 @@ def add_pet():
         flash(f"Added a {species} named {name}!")
         return redirect("/add")
     else:
-        #return spec
+       
         return render_template("add_pet.html", form=form)
 
 @app.route("/<int:id>", methods=["POST", "GET"])
@@ -58,10 +58,7 @@ def pet_page(id):
 
     pet = Pet.query.get_or_404(id)
     form = AddPetForm(obj=pet)
-    # spec = db.session.query(Pet.species)
-    # spec_list = list(set([(s, s) for s in spec]))
-    # print("********************************")
-    # print(spec_list, " SPEC LIST")
+
     spec = list(set([(p.species, p.species) for p in Pet.query.all()]))
     form.species.choices = spec
     if form.validate_on_submit():
